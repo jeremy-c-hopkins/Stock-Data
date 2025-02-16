@@ -1,3 +1,8 @@
+# Basically obsolete due to yfinance. Should have used api in the first place instead of scraping. 
+# At least yfinance is good and fast
+
+# Getting data from openinsider is still useful
+
 import time
 import decimal
 import requests
@@ -239,6 +244,23 @@ class DataScraping():
 
         return(financials, balanceSheet, cashFlow, ratios)
 
+class DataCollection():
+
+    def __init__(self, ticker):
+
+        self.ticker  = ticker
+        self.stock = yf.Ticker(self.ticker)
+        self.sector = yf.Sector(self.stock.info.get("sectorKey"))
+        self.industry = yf.Industry(self.stock.info.get("industryKey"))
+
+    def _financials(self):
+        """
+        Gets all financials including cash flow, 
+        """
+        income_stmt = self.stock.income_stmt
+
+
+
     
 def open_insider(ticker):
     """
@@ -298,9 +320,9 @@ def open_insider(ticker):
     return df, link
 
         
-small_cap = pd.read_csv("/home/bread/Coding/Finance/src/data/market_cap/small_cap.csv")
+small_cap = pd.read_csv("/home/bread/Coding/Stock-Data/src/data/market_cap/small_cap.csv")
 tickers = list(small_cap["Symbol"])
-tickers = tickers[500:550]
+tickers = tickers[550:600]
 
 for ticker in tickers:
     try:

@@ -10,3 +10,4 @@ sql_query = """SELECT name FROM sqlite_master
 cur.execute(sql_query)
 
 print(cur.fetchall())
+
